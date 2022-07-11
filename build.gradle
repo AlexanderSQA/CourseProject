@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.otus'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.22.0'
+	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
+	testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.3.3'
+	implementation group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.3'
+	implementation group: 'io.appium', name: 'java-client', version: '7.6.0'
+	implementation group: 'com.codeborne', name: 'selenide-appium', version: '2.0.3'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+}
+
+[compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}
+[compileJava, compileTestJava]*.options.collect {options -> options.debug = true}
+
+tasks.named('test') {
+	useJUnitPlatform()
+	systemProperties = [
+			'file.encoding': 'UTF-8',
+	]
+}
